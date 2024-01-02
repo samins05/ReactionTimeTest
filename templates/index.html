@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+    
+    <div class="title">
+    <h1>LeaderBoards</h1>
+    <ol class="list-group list-group-numbered">
+    {% for user in users %}
+        <li class="list-group-item">{{user.name}} {{user.email}} {{user.reactiontime}}ms</li>
+    {% endfor %}
+    </ol>
+</div>
+<a href="{{url_for('create')}}"><button type="button" class="btn btn-primary btn-lg">Click to play!</button></a>
+    {% endblock %}
+</body>
+</html>

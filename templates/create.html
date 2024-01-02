@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body >
+    {% extends 'base.html' %}
+    {% block content %}
+    <script>
+        startTime;
+        endTime;
+        reactionTime;
+        countClicked=0;
+
+        /*function hideItems(){
+            document.getElementById("circle").style.display="none";
+            document.getElementById("infoForm").style.display="none";
+            document.getElementById("reactiontime").style.display="none";
+        }
+        */
+
+        function showCircle(){ // circle shows up after a randomly generated number of seconds
+            document.getElementById("circle").style.display="initial";
+            startTime = new Date();
+        }
+
+        function start(){ // when start button gets clicked
+            document.getElementById("infoForm").style.display="none";
+        randomTime = Math.floor(Math.random()*2000+1000); // generate a random number of milliseconds/seconds between 1 and 3 seconds
+        setTimeout(showCircle,randomTime); // call showcircle function after the randomly generated amount of seconds passed 
+            console.log('this is randomtime: ' +randomTime);
+    }
+
+        function circleClicked(){
+            endTime= new Date();
+            reactionTime=endTime.getTime()-startTime.getTime()
+            document.getElementById("circle").style.display="none";
+            document.getElementById("infoForm").style.display="initial";
+            document.getElementById("reactiontime").value=reactionTime;
+            document.getElementById("reactionDisplay").innerHTML = "Your reaction time is " +reactionTime +" ms";
+        }
+        
+    </script>
+    <div>
+        <h1 id="reactionDisplay"></h1>
+        <button onclick="start()">Start</button>
+        <br>
+        <img style="display:none" id="circle" src="../static/circle.png" onclick="circleClicked()">
+    </div>
+    <form style="display:none" id ="infoForm" method="post"> <!-- form will send a post request-->
+        <label for="Name">Name</label>
+        <input type="text" name="name" placeholder="Name" required>
+        <br>
+        <label for="Email">Email</label>
+        <input type="email" name="email" placeholder="email" required>
+        <br>
+        <label for="Hours">Hours Spent on Activity</label> 
+        <input type="number" name="hours" placeholder="hours" required>
+        <input style="display:none" type="number" id ="reactiontime" name="reactiontime" placeholder="reactiontime" readonly>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% endblock %}
+</body>
+</html>
